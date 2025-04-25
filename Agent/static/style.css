@@ -1,0 +1,410 @@
+/*
+   Insurance Professional - Modern Design
+   A clean, professional design for insurance agents
+*/
+
+/* ===== VARIABLES ===== */
+:root {
+    --primary: #2c3e50;
+    --primary-light: #34495e;
+    --secondary: #3498db;
+    --secondary-light: #5dade2;
+    --accent: #e67e22;
+    --light: #ecf0f1;
+    --dark: #2c3e50;
+    --gray: #95a5a6;
+    --light-gray: #f5f5f5;
+    --success: #2ecc71;
+    --danger: #e74c3c;
+    --shadow-sm: 0 2px 10px rgba(0,0,0,0.05);
+    --shadow-md: 0 5px 15px rgba(0,0,0,0.08);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --border-radius: 8px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 20px;
+}
+
+/* ===== GENERAL STYLES ===== */
+body {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    color: var(--dark);
+    line-height: 1.7;
+    background-color: #fff;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--secondary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--secondary-light);
+}
+
+.btn {
+    border-radius: var(--border-radius);
+    padding: 0.6rem 1.5rem;
+    font-weight: 500;
+    transition: var(--transition);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-light);
+    border-color: var(--secondary-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-outline-primary {
+    color: var(--secondary);
+    border-color: var(--secondary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--secondary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.section-title {
+    position: relative;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.section-title:after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--secondary);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    padding: 1rem 0;
+    transition: var(--transition);
+    background-color: var(--primary);
+}
+
+.navbar.scrolled {
+    background-color: var(--primary);
+    box-shadow: var(--shadow-sm);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--secondary) !important;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    position: relative;
+    color: var(--light) !important;
+}
+
+.navbar-nav .nav-link:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--secondary);
+    transition: var(--transition);
+    transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: var(--secondary) !important;
+}
+
+.navbar-nav .nav-link:hover:after,
+.navbar-nav .nav-link.active:after {
+    width: 70%;
+}
+
+/* ===== HERO SECTION ===== */
+.hero-section {
+    background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    padding: 150px 0 100px;
+    position: relative;
+}
+
+.hero-section:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0));
+    opacity: 0.1;
+}
+
+.profile-img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
+    margin-bottom: 2rem;
+}
+
+.profile-img:hover {
+    transform: scale(1.05);
+    border-color: var(--secondary);
+}
+
+/* ===== ABOUT SECTION ===== */
+#about {
+    background-color: var(--light);
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+#about:before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), var(--light));
+}
+
+.stats-box {
+    padding: 30px 20px;
+    text-align: center;
+    background: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    border-bottom: 4px solid var(--secondary);
+}
+
+.stats-box:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stats-box h3 {
+    font-size: 2.5rem;
+    color: var(--secondary);
+    margin-bottom: 0.5rem;
+}
+
+/* ===== POST SECTION ===== */
+.post-section {
+    background-color: #ffffff;
+    padding: 100px 0;
+}
+
+.post-card {
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    height: 100%;
+    transition: var(--transition);
+    border: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.post-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.post-img {
+    height: 240px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.post-img:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+.post-card .card-body {
+    padding: 1.5rem;
+}
+
+.post-card .card-title {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+.post-card .card-text {
+    color: var(--gray);
+    margin-bottom: 1rem;
+}
+
+/* ===== CONTACT SECTION ===== */
+.contact-section {
+    background-color: var(--light);
+    padding: 100px 0;
+    position: relative;
+}
+
+.contact-icon {
+    font-size: 1.8rem;
+    color: var(--secondary);
+    margin-right: 15px;
+    transition: var(--transition);
+}
+
+.contact-section .btn {
+    margin-top: 1rem;
+    padding: 0.8rem 2rem;
+    border-radius: var(--border-radius);
+}
+
+.contact-section .social-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    transition: var(--transition);
+}
+
+.contact-section .social-btn:hover {
+    transform: translateY(-5px);
+}
+
+/* ===== MODAL ===== */
+#imageModal .modal-content {
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    border: none;
+}
+
+#modalImage {
+    max-height: 80vh;
+    cursor: zoom-in;
+    transition: var(--transition);
+}
+
+#imageModal .modal-header {
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+#imageModal .modal-title {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background-color: var(--primary);
+    color: white;
+    padding: 50px 0 20px;
+}
+
+footer a {
+    color: var(--light);
+}
+
+footer a:hover {
+    color: var(--secondary);
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
+@media (max-width: 992px) {
+    .hero-section {
+        padding: 120px 0 80px;
+    }
+
+    .profile-img {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        margin-bottom: 2rem;
+    }
+
+    .stats-box {
+        margin-bottom: 1.5rem;
+        padding: 15px;
+    }
+
+    .stats-box h3 {
+        font-size: 2rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .stats-box p {
+        font-size: 0.9rem;
+        margin-bottom: 0;
+    }
+
+    .stats-box i {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.5rem;
+    }
+
+    #about {
+        padding: 60px 0;
+    }
+
+    .post-section {
+        padding: 60px 0;
+    }
+
+    .post-img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 100px 0 60px;
+    }
+
+    .profile-img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .post-card {
+        margin-bottom: 1.5rem;
+    }
+}

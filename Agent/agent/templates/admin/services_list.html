@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Services{% endblock %}
+
+{% block extra_css %}
+<style>
+    .admin-container {
+        padding: 30px 0;
+        margin-top: 70px;
+    }
+    .action-buttons .btn {
+        margin-right: 5px;
+    }
+    .service-icon {
+        font-size: 1.5rem;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--light);
+        border-radius: 50%;
+        color: var(--secondary);
+    }
+    .service-description {
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container admin-container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Manage Services</h1>
+        <div>
+            <a href="{% url 'custom_admin_service_add' %}" class="btn btn-success me-2">
+                <i class="fas fa-plus me-2"></i>Add New Service
+            </a>
+            <a href="{% url 'custom_admin_dashboard' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+            </a>
+        </div>
+    </div>
+    
+    {% if messages %}
+    <div class="alert alert-success">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% if services %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Icon</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Order</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in services %}
+                <tr>
+                    <td>
+                        <div class="service-icon">
+                            <i class="fas {{ service.icon }}"></i>
+                        </div>
+                    </td>
+                    <td>{{ service.name }}</td>
+                    <td class="service-description">{{ service.description }}</td>
+                    <td>{{ service.order }}</td>
+                    <td class="action-buttons">
+                        <a href="{% url 'custom_admin_service_edit' service.id %}" class="btn btn-sm btn-primary">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a href="{% url 'custom_admin_service_delete' service.id %}" class="btn btn-sm btn-danger" 
+                           onclick="return confirm('Are you sure you want to delete this service?')">
+                            <i class="fas fa-trash"></i> Delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <div class="py-5">
+            <i class="fas fa-cogs mb-3" style="font-size: 3rem; color: var(--gray);"></i>
+            <p class="lead text-muted">No services available yet.</p>
+            <p>Click the "Add New Service" button to create your first service.</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block extra_css %}
+<style>
+    .admin-dashboard {
+        padding: 30px 0;
+        margin-top: 70px;
+    }
+    .admin-card {
+        transition: transform 0.3s;
+        margin-bottom: 20px;
+    }
+    .admin-card:hover {
+        transform: translateY(-5px);
+    }
+    .admin-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: #007bff;
+    }
+    .logout-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container admin-dashboard">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Admin Dashboard</h1>
+        <a href="{% url 'custom_admin_logout' %}" class="btn btn-outline-danger">
+            <i class="fas fa-sign-out-alt me-2"></i>Logout
+        </a>
+    </div>
+
+    <div class="row mt-5 justify-content-center">
+        <div class="col-md-4">
+            <div class="card admin-card text-center p-4">
+                <div class="card-body">
+                    <i class="fas fa-user-tie admin-icon"></i>
+                    <h3>Agent Profile</h3>
+                    <p>Manage your personal information and contact details</p>
+                    <a href="{% url 'custom_admin_agent' %}" class="btn btn-primary">Manage</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card admin-card text-center p-4">
+                <div class="card-body">
+                    <i class="fas fa-newspaper admin-icon"></i>
+                    <h3>Posts</h3>
+                    <p>Create and manage posts for your website</p>
+                    <a href="{% url 'custom_admin_posts' %}" class="btn btn-primary">Manage</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card admin-card text-center p-4">
+                <div class="card-body">
+                    <i class="fas fa-cogs admin-icon"></i>
+                    <h3>Services</h3>
+                    <p>Create and manage services offered by you</p>
+                    <a href="{% url 'custom_admin_services' %}" class="btn btn-primary">Manage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

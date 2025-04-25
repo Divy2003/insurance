@@ -1,0 +1,150 @@
+server {
+    listen 80;
+    server_name your_domain_or_ip;  # Replace with your domain name or server IP
+
+    # Redirect HTTP to HTTPS (uncomment after setting up SSL)
+    # return 301 https://$host$request_uri;
+
+    location = /favicon.ico { 
+        access_log off; 
+        log_not_found off; 
+    }
+
+    # Serve static files directly
+    location /static/ {
+        alias /path/to/your/project/staticfiles/;  # Replace with your actual path
+        expires 30d;
+        add_header Cache-Control "public, max-age=2592000";
+    }
+
+    # Proxy requests to Gunicorn
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_pass http://127.0.0.1:8000;
+        proxy_buffering off;
+        proxy_redirect off;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    # Increase max upload size for large files
+    client_max_body_size 10M;
+
+    # Enable gzip compression
+    gzip on;
+    gzip_comp_level 5;
+    gzip_min_length 256;
+    gzip_proxied any;
+    gzip_vary on;
+    gzip_types
+        application/atom+xml
+        application/javascript
+        application/json
+        application/ld+json
+        application/manifest+json
+        application/rss+xml
+        application/vnd.geo+json
+        application/vnd.ms-fontobject
+        application/x-font-ttf
+        application/x-web-app-manifest+json
+        application/xhtml+xml
+        application/xml
+        font/opentype
+        image/bmp
+        image/svg+xml
+        image/x-icon
+        text/cache-manifest
+        text/css
+        text/plain
+        text/vcard
+        text/vnd.rim.location.xloc
+        text/vtt
+        text/x-component
+        text/x-cross-domain-policy;
+}
+
+# HTTPS server configuration (uncomment after setting up SSL)
+# server {
+#     listen 443 ssl http2;
+#     server_name your_domain_or_ip;  # Replace with your domain name or server IP
+#
+#     ssl_certificate /etc/letsencrypt/live/your_domain/fullchain.pem;  # Replace with your cert path
+#     ssl_certificate_key /etc/letsencrypt/live/your_domain/privkey.pem;  # Replace with your key path
+#     ssl_trusted_certificate /etc/letsencrypt/live/your_domain/chain.pem;  # Replace with your chain path
+#
+#     # SSL configuration
+#     ssl_protocols TLSv1.2 TLSv1.3;
+#     ssl_prefer_server_ciphers on;
+#     ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+#     ssl_session_timeout 1d;
+#     ssl_session_cache shared:SSL:10m;
+#     ssl_session_tickets off;
+#     ssl_stapling on;
+#     ssl_stapling_verify on;
+#
+#     # HSTS (comment out if you don't know what this is)
+#     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+#
+#     # Same configuration as HTTP server
+#     location = /favicon.ico { 
+#         access_log off; 
+#         log_not_found off; 
+#     }
+#
+#     location /static/ {
+#         alias /path/to/your/project/staticfiles/;  # Replace with your actual path
+#         expires 30d;
+#         add_header Cache-Control "public, max-age=2592000";
+#     }
+#
+#     location / {
+#         proxy_set_header Host $http_host;
+#         proxy_set_header X-Real-IP $remote_addr;
+#         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#         proxy_set_header X-Forwarded-Proto $scheme;
+#         proxy_pass http://127.0.0.1:8000;
+#         proxy_buffering off;
+#         proxy_redirect off;
+#         proxy_http_version 1.1;
+#         proxy_set_header Upgrade $http_upgrade;
+#         proxy_set_header Connection "upgrade";
+#     }
+#
+#     client_max_body_size 10M;
+#
+#     # Enable gzip compression
+#     gzip on;
+#     gzip_comp_level 5;
+#     gzip_min_length 256;
+#     gzip_proxied any;
+#     gzip_vary on;
+#     gzip_types
+#         application/atom+xml
+#         application/javascript
+#         application/json
+#         application/ld+json
+#         application/manifest+json
+#         application/rss+xml
+#         application/vnd.geo+json
+#         application/vnd.ms-fontobject
+#         application/x-font-ttf
+#         application/x-web-app-manifest+json
+#         application/xhtml+xml
+#         application/xml
+#         font/opentype
+#         image/bmp
+#         image/svg+xml
+#         image/x-icon
+#         text/cache-manifest
+#         text/css
+#         text/plain
+#         text/vcard
+#         text/vnd.rim.location.xloc
+#         text/vtt
+#         text/x-component
+#         text/x-cross-domain-policy;
+# }

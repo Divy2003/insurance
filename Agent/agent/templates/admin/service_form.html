@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if service %}Edit{% else %}Add{% endif %} Service{% endblock %}
+
+{% block extra_css %}
+<style>
+    .admin-form-container {
+        padding: 30px 0;
+        margin-top: 70px;
+    }
+    .icon-preview {
+        font-size: 2rem;
+        margin-top: 15px;
+        color: var(--secondary);
+    }
+    .icon-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+        margin-top: 15px;
+    }
+    .icon-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    .icon-option:hover {
+        background-color: var(--light);
+        transform: translateY(-2px);
+    }
+    .icon-option i {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+        color: var(--secondary);
+    }
+    .icon-option.selected {
+        background-color: var(--light);
+        border-color: var(--secondary);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container admin-form-container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>{% if service %}Edit{% else %}Add{% endif %} Service</h1>
+        <a href="{% url 'custom_admin_services' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Services List
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Service Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ service.name|default:'' }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description (Optional)</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter service description (optional)">{{ service.description|default:'' }}</textarea>
+                    <div class="form-text">A brief description of the service (can be left blank).</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="icon" class="form-label">Icon</label>
+                    <input type="text" class="form-control" id="icon" name="icon" value="{{ service.icon|default:'fa-shield-alt' }}" required>
+                    <div class="icon-preview mt-2">
+                        <i id="iconPreview" class="fas {{ service.icon|default:'fa-shield-alt' }}"></i>
+                        <span class="ms-2 text-muted small">Preview</span>
+                    </div>
+                    <div class="mt-3">
+                        <p class="mb-2">Common icons (click to select):</p>
+                        <div class="icon-options">
+                            <div class="icon-option" data-icon="fa-shield-alt">
+                                <i class="fas fa-shield-alt"></i>
+                                <span class="small">Shield</span>
+                            </div>
+                            <div class="icon-option" data-icon="fa-home">
+                                <i class="fas fa-home"></i>
+                                <span class="small">Home</span>
+                            </div>
+                            <div class="icon-option" data-icon="fa-car">
+                                <i class="fas fa-car"></i>
+                                <span class="small">Car</span>
+                            </div>
+                            <div class="icon-option" data-icon="fa-heartbeat">
+                                <i class="fas fa-heartbeat"></i>
+                                <span class="small">Health</span>
+                            </div>
+                            <div class="icon-option" data-icon="fa-briefcase">
+                                <i class="fas fa-briefcase"></i>
+                                <span class="small">Business</span>
+                            </div>
+                            <div class="icon-option" data-icon="fa-umbrella">
+                                <i class="fas fa-umbrella"></i>
+                                <span class="small">Umbrella</span>
+                            </div>
+                            <div class="icon-option" data-icon="fa-users">
+                                <i class="fas fa-users"></i>
+                                <span class="small">Family</span>
+                            </div>
+                            <div class="icon-option" data-icon="fa-chart-line">
+                                <i class="fas fa-chart-line"></i>
+                                <span class="small">Investment</span>
+                            </div>
+                            <div class="icon-option" data-icon="fa-graduation-cap">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span class="small">Education</span>
+                            </div>
+                            <div class="icon-option" data-icon="fa-plane">
+                                <i class="fas fa-plane"></i>
+                                <span class="small">Travel</span>
+                            </div>
+                            <div class="icon-option" data-icon="fa-building">
+                                <i class="fas fa-building"></i>
+                                <span class="small">Property</span>
+                            </div>
+                            <div class="icon-option" data-icon="fa-coins">
+                                <i class="fas fa-coins"></i>
+                                <span class="small">Money</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="order" class="form-label">Display Order</label>
+                    <input type="number" class="form-control" id="order" name="order" value="{{ service.order|default:'0' }}" min="0">
+                    <div class="form-text">Lower numbers will be displayed first.</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Service</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Icon preview functionality
+        const iconInput = document.getElementById('icon');
+        const iconPreview = document.getElementById('iconPreview');
+
+        iconInput.addEventListener('input', function() {
+            updateIconPreview();
+        });
+
+        function updateIconPreview() {
+            // Remove all classes and add fas and the selected icon
+            iconPreview.className = '';
+            iconPreview.classList.add('fas');
+            iconPreview.classList.add(iconInput.value);
+        }
+
+        // Icon selection functionality
+        const iconOptions = document.querySelectorAll('.icon-option');
+
+        iconOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const icon = this.getAttribute('data-icon');
+                iconInput.value = icon;
+                updateIconPreview();
+
+                // Update selected state
+                iconOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+
+            // Set initial selected state
+            if (option.getAttribute('data-icon') === iconInput.value) {
+                option.classList.add('selected');
+            }
+        });
+    });
+</script>
+{% endblock %}

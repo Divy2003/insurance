@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ insurance.title }} - Details{% endblock %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4">{{ insurance.title }}</h1>
+            <p class="lead">{{ insurance.get_type_display }}</p>
+        </div>
+    </section>
+
+    <!-- Insurance Description -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto text-center">
+                    <h2 class="mb-4">About This Insurance</h2>
+                    <p class="lead">{{ insurance.description }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insurance Plans -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Available Plans</h2>
+            <div class="row g-4">
+                {% for plan in plans %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card plan-card">
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+
+                            <h3 class="card-title text-center">{{ plan.name }}</h3>
+                            <p class="card-text">{{ plan.description }}</p>
+                            <div class="mb-3">
+                                <h6>Key Features:</h6>
+                                <p>{{ plan.features }}</p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-bold">{{ plan.price_range }}</span>
+                                <a href="#" class="btn btn-primary">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p>No plans available at the moment.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Need More Information?</h2>
+            <p class="lead mb-4">Contact our insurance expert for personalized assistance</p>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ agent.name }}</h5>
+                            <p class="card-text">
+                                <i class="fas fa-phone me-2"></i>{{ agent.phone }}<br>
+                                <i class="fas fa-envelope me-2"></i>{{ agent.email }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
