@@ -3,17 +3,19 @@ Description=Insurance Django Application
 After=network.target postgresql.service
 
 [Service]
-User=ubuntu  # Replace with your user
-Group=ubuntu  # Replace with your group
-WorkingDirectory=/path/to/your/project  # Replace with your project path
-ExecStart=/path/to/your/project/venv/bin/gunicorn --config /etc/gunicorn_config.py insurance.wsgi:application
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/insurance/Agent
+ExecStart=/home/ubuntu/insurance/Agent/venv/bin/gunicorn insurance.wsgi:application --bind=127.0.0.1:8000
 Restart=on-failure
-RestartSec=5
-Environment="PATH=/path/to/your/project/venv/bin"
+Environment="PATH=/home/ubuntu/insurance/Agent/venv/bin"
 Environment="DJANGO_SETTINGS_MODULE=insurance.settings"
 Environment="DEBUG=False"
 Environment="AWS_DEPLOYMENT=True"
-# Add other environment variables here including Cloudinary credentials
+Environment="CLOUD_NAME=dc1dzbv7o"
+Environment="API_KEY=454236491572956"
+Environment="API_SECRET=IUcScZMiP9QXmyh51Cubkkkf5yw"
+Environment="CLOUDINARY_URL=cloudinary://454236491572956:IUcScZMiP9QXmyh51Cubkkkf5yw@dc1dzbv7o"
 
 [Install]
 WantedBy=multi-user.target

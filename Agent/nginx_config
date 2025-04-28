@@ -1,18 +1,18 @@
 server {
     listen 80;
-    server_name your_domain_or_ip;  # Replace with your domain name or server IP
+    server_name 51.20.248.221;  # Replace with your domain name or server IP
 
     # Redirect HTTP to HTTPS (uncomment after setting up SSL)
     # return 301 https://$host$request_uri;
 
-    location = /favicon.ico { 
-        access_log off; 
-        log_not_found off; 
+    location = /favicon.ico {
+        access_log off;
+        log_not_found off;
     }
 
     # Serve static files directly
     location /static/ {
-        alias /path/to/your/project/staticfiles/;  # Replace with your actual path
+        alias /home/ubuntu/insurance/Agent/staticfiles/;  # Path to your static files
         expires 30d;
         add_header Cache-Control "public, max-age=2592000";
     }
@@ -90,9 +90,9 @@ server {
 #     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
 #
 #     # Same configuration as HTTP server
-#     location = /favicon.ico { 
-#         access_log off; 
-#         log_not_found off; 
+#     location = /favicon.ico {
+#         access_log off;
+#         log_not_found off;
 #     }
 #
 #     location /static/ {
